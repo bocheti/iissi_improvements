@@ -18,8 +18,9 @@ import { buildInitialValues } from '../Helper'
 export default function ProfileScreen () {
   const { loggedInUser, signOut, updateProfile } = useContext(AuthorizationContext)
   const [backendErrors, setBackendErrors] = useState()
+  const [showPassword, setShowPassword] = useState(false)
 
-  const [initialUserValues, setInitialUserValues] = useState({ firstName: null, lastName: null, phone: null, address: null, postalCode: null, avatar: null })
+  const [initialUserValues, setInitialUserValues] = useState({ firstName: null, lastName: null, password: null, phone: null, address: null, postalCode: null, avatar: null })
 
   const validationSchema = yup.object().shape({
     firstName: yup
@@ -34,6 +35,11 @@ export default function ProfileScreen () {
       .string()
       .max(255, 'Phone too long')
       .required('Phone is required'),
+    password: yup
+      .string()
+      .min(3, ({ min }) => `Password must be at least ${min} characters`)
+      .matches(/^\S*$/, 'No spaces are allowed')
+      .required('Password is required'),
     address: yup
       .string()
       .max(255, 'Address too long')
@@ -141,6 +147,21 @@ export default function ProfileScreen () {
                     label='Phone'
                     textContentType='telephoneNumber'
                   />
+                  <View style = {{ flexDirection: 'row', alignSelf: 'flex-start', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <InputItem
+                      name='password'
+                      label='Pass'
+                      textContentType='password'
+                      secureTextEntry={!showPassword}
+                    />
+                    <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                    <MaterialCommunityIcons
+                        name={showPassword ? 'eye' : 'eye-off'}
+                        style={{ marginLeft: 10 }}
+                        size={24}
+                      />
+                    </TouchableOpacity>
+                  </View>
                   <InputItem
                     name='address'
                     label='Address'

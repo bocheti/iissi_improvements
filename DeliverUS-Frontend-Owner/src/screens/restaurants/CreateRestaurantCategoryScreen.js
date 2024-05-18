@@ -13,8 +13,15 @@ import TextError from '../../components/TextError'
 export default function CreateRestaurantScreen ({ navigation }) {
   const [backendErrors, setBackendErrors] = useState()
   const [restaurantCategories, setRestaurantCategories] = useState([])
+  const [varColor, setVarColor] = useState('green')
+  const [varFontSize, setVarFontSize] = useState(15)
 
   const initialRestaurantCategoryValues = { name: null }
+  const tips = ['¡Crear una nueva categoría de comida implica un nuevo universo de sabores!',
+    '¿No sabes cómo nombrar a tu nueva categoría de comida? ¡Pide ayuda a la IA!',
+    'Sólo el creador sabe el secreto del sabor',
+    '¡Buenos días! Espero que te vaya todo bien en tu restaurante.',
+    "Mi categoría favorita es la 'Spanish Food', ¿sabes por qué?: ¡porque España tiene la mejor dieta del mundo!"]
 
   const validationSchema = yup.object().shape({
     name: yup
@@ -82,13 +89,170 @@ export default function CreateRestaurantScreen ({ navigation }) {
               backendErrors.map((error, index) => <TextError key={index}>{error.param}-{error.msg}</TextError>)
             }
 
+            <TextRegular textStyle={{ fontStyle: 'italic', alignSelf: 'center', marginTop: 10, fontSize: varFontSize }}>{tips[Math.floor(Math.random() * 5)]}</TextRegular>
+
+            <View style={{ flex: 0.5, flexDirection: 'row', justifyContent: 'center', height: 200, marginBottom: 10 }}>
+              <View style={{ flex: 1, flexDirection: 'column', marginRight: 5 }}>
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Pressable
+                  onPress={() => { setVarColor('red') }}
+                  style={({ pressed }) => [
+                    {
+                      backgroundColor: pressed
+                        ? GlobalStyles.brandPrimary
+                        : GlobalStyles.brandGreen
+                    },
+                    styles.buttonColor
+                  ]}>
+                  <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+                    <TextRegular textStyle={styles.text}>Red</TextRegular>
+                  </View>
+                  </Pressable>
+                  <Pressable
+                  onPress={() => { setVarColor('green') }}
+                  style={({ pressed }) => [
+                    {
+                      backgroundColor: pressed
+                        ? GlobalStyles.brandPrimary
+                        : GlobalStyles.brandGreen
+                    },
+                    styles.buttonColor
+                  ]}>
+                  <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+                    <TextRegular textStyle={styles.text}>Green</TextRegular>
+                  </View>
+                  </Pressable>
+                  <Pressable
+                  onPress={() => { setVarColor('pink') }}
+                  style={({ pressed }) => [
+                    {
+                      backgroundColor: pressed
+                        ? GlobalStyles.brandPrimary
+                        : GlobalStyles.brandGreen
+                    },
+                    styles.buttonColor
+                  ]}>
+                  <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+                    <TextRegular textStyle={styles.text}>Pink</TextRegular>
+                  </View>
+                  </Pressable>
+                </View>
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Pressable
+                    onPress={() => { setVarFontSize(15) }}
+                    style={({ pressed }) => [
+                      {
+                        backgroundColor: pressed
+                          ? GlobalStyles.brandPrimary
+                          : GlobalStyles.brandGreen
+                      },
+                      styles.buttonFont
+                    ]}>
+                    <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+                      <TextRegular textStyle={styles.text}>15</TextRegular>
+                    </View>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => { setVarFontSize(20) }}
+                    style={({ pressed }) => [
+                      {
+                        backgroundColor: pressed
+                          ? GlobalStyles.brandPrimary
+                          : GlobalStyles.brandGreen
+                      },
+                      styles.buttonFont
+                    ]}>
+                    <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+                      <TextRegular textStyle={styles.text}>20</TextRegular>
+                    </View>
+                  </Pressable>
+                </View>
+              </View>
+              <View style={{ flex: 1, flexDirection: 'column', marginLeft: 5 }}>
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Pressable
+                    onPress={() => { setVarColor('orange') }}
+                    style={({ pressed }) => [
+                      {
+                        backgroundColor: pressed
+                          ? GlobalStyles.brandPrimary
+                          : GlobalStyles.brandGreen
+                      },
+                      styles.buttonColor
+                    ]}>
+                    <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+                      <TextRegular textStyle={styles.text}>Orange</TextRegular>
+                    </View>
+                    </Pressable>
+                    <Pressable
+                    onPress={() => { setVarColor('blue') }}
+                    style={({ pressed }) => [
+                      {
+                        backgroundColor: pressed
+                          ? GlobalStyles.brandPrimary
+                          : GlobalStyles.brandGreen
+                      },
+                      styles.buttonColor
+                    ]}>
+                    <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+                      <TextRegular textStyle={styles.text}>Blue</TextRegular>
+                    </View>
+                    </Pressable>
+                    <Pressable
+                    onPress={() => { setVarColor('black') }}
+                    style={({ pressed }) => [
+                      {
+                        backgroundColor: pressed
+                          ? GlobalStyles.brandPrimary
+                          : GlobalStyles.brandGreen
+                      },
+                      styles.buttonColor
+                    ]}>
+                    <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+                      <TextRegular textStyle={styles.text}>Black</TextRegular>
+                    </View>
+                    </Pressable>
+                  </View>
+                  <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Pressable
+                      onPress={() => { setVarFontSize(25) }}
+                      style={({ pressed }) => [
+                        {
+                          backgroundColor: pressed
+                            ? GlobalStyles.brandPrimary
+                            : GlobalStyles.brandGreen
+                        },
+                        styles.buttonFont
+                      ]}>
+                      <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+                        <TextRegular textStyle={styles.text}>25</TextRegular>
+                      </View>
+                    </Pressable>
+                    <Pressable
+                      onPress={() => { setVarFontSize(30) }}
+                      style={({ pressed }) => [
+                        {
+                          backgroundColor: pressed
+                            ? GlobalStyles.brandPrimary
+                            : GlobalStyles.brandGreen
+                        },
+                        styles.buttonFont
+                      ]}>
+                      <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+                        <TextRegular textStyle={styles.text}>30</TextRegular>
+                      </View>
+                    </Pressable>
+                  </View>
+              </View>
+            </View>
+
             <Pressable
               onPress={handleSubmit}
               style={({ pressed }) => [
                 {
                   backgroundColor: pressed
-                    ? GlobalStyles.brandSuccessTap
-                    : GlobalStyles.brandSuccess
+                    ? varColor
+                    : varColor
                 },
                 styles.button
               ]}>
@@ -107,10 +271,26 @@ export default function CreateRestaurantScreen ({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  buttonColor: {
+    borderRadius: 5,
+    height: 30,
+    padding: 2,
+    width: '31.5%',
+    marginTop: 20,
+    marginBottom: 20
+  },
+  buttonFont: {
+    borderRadius: 5,
+    height: 30,
+    padding: 2,
+    width: '48.5%',
+    marginTop: 20,
+    marginBottom: 20
+  },
   button: {
-    borderRadius: 8,
-    height: 40,
-    padding: 10,
+    borderRadius: 5,
+    height: 30,
+    padding: 2,
     width: '100%',
     marginTop: 20,
     marginBottom: 20
@@ -119,7 +299,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
     textAlign: 'center',
-    marginLeft: 5
+    justifyContent: 'center',
+    alignSelf: 'center'
   },
   imagePicker: {
     height: 40,

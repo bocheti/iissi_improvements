@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useEffect, useState } from 'react'
-import { StyleSheet, FlatList, Pressable, View } from 'react-native'
+import { StyleSheet, FlatList, Pressable, View, ActivityIndicator } from 'react-native'
 
 import { getAll, remove } from '../../api/RestaurantEndpoints'
 import ImageCard from '../../components/ImageCard'
@@ -17,13 +17,19 @@ export default function RestaurantsScreen ({ navigation, route }) {
   const [restaurants, setRestaurants] = useState([])
   const [restaurantToBeDeleted, setRestaurantToBeDeleted] = useState(null)
   const { loggedInUser } = useContext(AuthorizationContext)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    if (loggedInUser) {
-      fetchRestaurants()
-    } else {
-      setRestaurants(null)
-    }
+    console.log('Loading restaurants, please wait 5 seconds')
+    setTimeout(() => {
+      if (loggedInUser) {
+        fetchRestaurants()
+      } else {
+        setRestaurants([])
+      }
+      setIsLoading(false)
+      console.log('Restaurants loaded')
+    }, 650)
   }, [loggedInUser, route])
 
   const renderRestaurant = ({ item }) => {
@@ -155,7 +161,15 @@ export default function RestaurantsScreen ({ navigation, route }) {
 
   return (
     <>
-    <FlatList
+    { isLoading
+      ? (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size='large' color = {GlobalStyles.brandBlue} />
+        <TextRegular style = {{ color: GlobalStyles.brandBlue, fontSize: 15, marginTop: 10 }}>Loading restaurants, please wait...</TextRegular>
+      </View>
+        )
+      : (<>
+      <FlatList
       style={styles.container}
       data={restaurants}
       renderItem={renderRestaurant}
@@ -169,7 +183,7 @@ export default function RestaurantsScreen ({ navigation, route }) {
       onConfirm={() => removeRestaurant(restaurantToBeDeleted)}>
         <TextRegular>The products of this restaurant will be deleted as well</TextRegular>
         <TextRegular>If the restaurant has orders, it cannot be deleted.</TextRegular>
-    </DeleteModal>
+    </DeleteModal></>) }
     </>
   )
 }
